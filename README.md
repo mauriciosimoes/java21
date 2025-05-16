@@ -6,6 +6,10 @@
 openjdk version "23.0.2" 2025-01-21
 OpenJDK Runtime Environment Homebrew (build 23.0.2)
 OpenJDK 64-Bit Server VM Homebrew (build 23.0.2, mixed mode, sharing)
+
+Alternativa: Instalar o java através da própria página
+https://jdk.java.net/24/
+
 > brew install maven
 > mvn -version
 Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
