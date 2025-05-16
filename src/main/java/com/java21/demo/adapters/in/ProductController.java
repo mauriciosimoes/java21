@@ -10,6 +10,9 @@ import com.java21.demo.application.ports.in.ProductServicePort;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import com.java21.demo.adapters.in.dto.ProductDTO;
+import com.java21.demo.adapters.in.dto.ProductMapper;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,18 +21,19 @@ public class ProductController {
     private final ProductServicePort productService;
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        productService.createProduct(product.getName(), product.getDescription(), product.getPrice());
-        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+        productService.createProduct(productDTO.getName(), productDTO.getDescription(), productDTO.getPrice());
+        return ResponseEntity.status(HttpStatus.CREATED).body(productDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) {
-        Product updated = productService.updateProduct(id, product.getName(), product.getDescription(), product.getPrice());
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable String id, @RequestBody ProductDTO productDTO) {
+        Product updated = productService.updateProduct(id, productDTO.getName(), productDTO.getDescription(), productDTO.getPrice());
         if (updated == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
         }
-        return ResponseEntity.ok(updated);
+        ProductDTO dto = ProductMapper.toDTO(updated);
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")
@@ -39,18 +43,20 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable String id) {
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable String id) {
         Product product = productService.getProductById(id);
         if (product == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
         }
-        return ResponseEntity.ok(product);
+        ProductDTO dto = ProductMapper.toDTO(product);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
         List<Product> products = productService.getAllProducts();
-        return ResponseEntity.ok(products);
+        List<ProductDTO> dtos = products.stream().map(ProductMapper::toDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 
     @ExceptionHandler(Exception.class)
