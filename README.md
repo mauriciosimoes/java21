@@ -39,3 +39,8 @@ Dependencies:
 Comenta a parte de banco do pom.xml (spring-boot-starter-data-jpa)
 
 > mvn spring-boot:run  
+
+# Postgres no docker
+
+> docker-compose up -d  
+> docker ps  
