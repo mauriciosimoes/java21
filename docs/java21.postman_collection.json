@@ -25,7 +25,7 @@
 			"response": []
 		},
 		{
-			"name": "products/testeuuid",
+			"name": "/products/testeuuid",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -38,6 +38,33 @@
 					"path": [
 						"products",
 						"testeuuid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"name\": \"Produto 1\",\n    \"description\": \"Descrição 1\",\n    \"price\": 10.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products"
 					]
 				}
 			},
