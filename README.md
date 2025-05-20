@@ -25,7 +25,7 @@ Lombok Annotations - Suporte a anotações Lombok
 Docker - Se for usar containers
 PostgreSQL - Se for usar banco PostgreSQL
 
-D0 do projeto:
+# D0 do projeto
 > https://start.spring.io
 Maven
 Java
@@ -40,7 +40,11 @@ Comenta a parte de banco do pom.xml (spring-boot-starter-data-jpa)
 
 > mvn spring-boot:run  
 
-# Postgres no docker
+Se precisar rodar o build sem os testes
+> mvn clean install -DskipTests 
+
+# Hoje Levantar aplicação
 
 > docker-compose up -d  
 > docker ps  
+> mvn spring-boot:run  
